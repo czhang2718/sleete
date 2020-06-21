@@ -1,4 +1,4 @@
-Package: sleet
+Package: sleete
 Type: Package
 Title: Super Learner for Efficient Estimation of Treatment Effects in Randomized Clinical Trials
 Version: 1.0.0
