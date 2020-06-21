@@ -220,12 +220,16 @@ emp.inf.fct <- function(est, y, t, I=1:length(t), J=I) {
 #'  examples. The \code{wmw.cens}, \code{surv.diff} and \code{mrst.diff} methods
 #'  require specifying a time point tau, which has no default value and must be
 #'  supplied by the user.
-#'@param SL.library Library of machien learning methods to include in super
-#'  learner
-#'@param cv Number of folds in cross validation
-#'@param cf Number of folds in sample splitting
-#'@param family Gassian or binomial; describes error distribution; see
-#'  \code{\link[SuperLearner]}
+#'@param SL.library A character vector of SuperLearner wrapper functions for the
+#'  prediction algorithms that comprise the super learner library. A full list
+#'  of wrapper functions included in the SuperLearner package can be found with
+#'  \code{listWrappers()}.
+#'@param cv The number of folds in the cross-validation for the super learner.
+#'@param cf The number of folds in the sample splitting or cross-fitting
+#'  procedure.
+#'@param family Gassian or binomial; describes error distribution.
+#'@seealso See \code{\link[SuperLearner]{SuperLearner}} for details on
+#'  \code{method}, \code{SL.library}, \code{cv}, \code{cf}, and \code{family}.
 #'@return A matrix with two columns: point estimates of the treatment effect of
 #'  interest and their standard errors. The number of rows is 2K+3, where K is
 #'  the length of \code{SL.library}. The first row is for the unadjusted
