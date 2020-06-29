@@ -226,8 +226,7 @@ emp.inf.fct <- function(est, y, t, I=1:length(t), J=I) {
 #'  \code{listWrappers()}.
 #'@param cv The number of folds in the cross-validation for the super learner.
 #'@param cf The number of folds in the sample splitting or cross-fitting
-#'  procedure.
-#'@param family Gassian or binomial; describes error distribution.
+#'  procedure
 #'@seealso See \code{\link[SuperLearner]{SuperLearner}} for details on
 #'  \code{method}, \code{SL.library}, \code{cv}, \code{cf}, and \code{family}.
 #'@return A matrix with two columns: point estimates of the treatment effect of

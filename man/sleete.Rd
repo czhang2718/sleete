@@ -61,15 +61,15 @@ examples. The \code{wmw.cens}, \code{surv.diff} and \code{mrst.diff} methods
 require specifying a time point tau, which has no default value and must be
 supplied by the user.}
 
-\item{SL.library}{Library of machien learning methods to include in super
-learner}
+\item{SL.library}{A character vector of SuperLearner wrapper functions for the
+prediction algorithms that comprise the super learner library. A full list
+of wrapper functions included in the SuperLearner package can be found with
+\code{listWrappers()}.}
 
-\item{cv}{Number of folds in cross validation}
+\item{cv}{The number of folds in the cross-validation for the super learner.}
 
-\item{cf}{Number of folds in sample splitting}
-
-\item{family}{Gassian or binomial; describes error distribution; see
-\code{\link[SuperLearner]}}
+\item{cf}{The number of folds in the sample splitting or cross-fitting
+procedure}
 }
 \value{
 A matrix with two columns: point estimates of the treatment effect of
@@ -166,4 +166,8 @@ inf.fct.wmw = function(y, t, I=1:length(t), J=I, pi=NULL, h=h0) {
   inf
 }
 wmw = list(pt.est=pt.est.wmw, inf.fct.avail=TRUE, inf.fct=inf.fct.wmw)
+}
+\seealso{
+See \code{\link[SuperLearner]{SuperLearner}} for details on
+ \code{method}, \code{SL.library}, \code{cv}, \code{cf}, and \code{family}.
 }
