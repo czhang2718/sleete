@@ -167,8 +167,9 @@ pt.est.surv.diff <- function(y, t, tau = Inf) {
   s0 <- 1 - sum(km.rst.0$p[km.rst.0$t <= tau])
   s1 - s0
 }
+
 # the method
-surv.diff <- list(pt.est = pt.est.surv.diff, inf.fct.avail = FALSE)
+surv.diff = list(pt.est=pt.est.surv.diff, inf.fct.avail=FALSE)
 
 # method for difference between two mean restricted (by tau) survival times
 # estimated from randomly right-censored data using the Kaplan-Meier approach
@@ -312,21 +313,23 @@ emp.inf.fct <- function(est,
 #'@examples
 #' # analysis of colon cancer data in the survival package
 #' library(survival)
+#' library(sleete)
 #' data(colon)
 #' dim(colon); names(colon)
 #' colon.data <- na.omit(subset(colon, subset=((etype==2)&(rx!="Lev")),
-#' select <- c(rx, time, status, sex, age, obstruct, perfor,
+#' select = c(rx, time, status, sex, age, obstruct, perfor,
 #'   adhere, nodes, node4, surg, differ, extent)))
 #' dim(colon.data)
 #' attach(colon.data)
 #' t = as.numeric(rx=="Lev+5FU")
 #' y = cbind(time, status)
-#' X = cbind(sex,age,obstruct,perfor,adhere,nodes,node4,surg,differ,extent)
+#' X = cbind(sex, age, obstruct, perfor, adhere, nodes, node4, surg, differ, extent)
 #' detach()
 #' pi = 0.5; tau = 5*365
 #' sleete(y, t, X, pi=pi, method=surv.diff, bounds=c(-1,1), tau=tau)
 #' sleete(y, t, X, pi=pi, method=mrst.diff, tau=tau)
-#' sleete(y, t, X, pi=pi, method=wmw.cens, bounds=c(-1,1), tau=tau) \cr
+#' sleete(y, t, X, pi=pi, method=wmw.cens, bounds=c(-1,1), tau=tau)
+#'
 #' # the log-odds-ratio method
 #' # logit = log-odds
 #' logit = function(p) log(p/(1-p))
@@ -339,7 +342,7 @@ emp.inf.fct <- function(est,
 #'   p1 = mean(y[I][t[I]>0.5]); p0 = mean(y[I][t[I]<0.5])
 #'   (t[J]*(y[J]-p1)/(pi*p1*(1-p1)))-((1-t[J])*(y[J]-p0)/((1-pi)*p0*(1-p0)))
 #' }
-#' log.odds.ratio = list(pt.est=pt.est.log.or, inf.fct.avail=TRUE, inf.fct=inf.fct.log.or) \cr
+#' log.odds.ratio = list(pt.est=pt.est.log.or, inf.fct.avail=TRUE, inf.fct=inf.fct.log.or)
 #'
 #' # the wmw method with an arbitrary h (default = h0)
 #' # Agresti definition of h
