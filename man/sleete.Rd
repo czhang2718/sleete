@@ -2,7 +2,8 @@
 % Please edit documentation in R/methods.R
 \name{sleete}
 \alias{sleete}
-\title{Estimates treatment effect in randomized clinical trials using a SuperLearner}
+\title{Super Learner for Efficient Estimation of Treatment Effects in Randomized
+Clinical Trials}
 \usage{
 sleete(
   y,
@@ -12,7 +13,7 @@ sleete(
   bounds = c(-Inf, Inf),
   method = mean.diff,
   ...,
-  SL.library = c("SL.mean", "SL.glm", "SL.gam", "SL.rpart", "SL.randomForest"),
+  SL.library = c("SL.glm", "SL.gam", "SL.rpart", "SL.randomForest"),
   cv = 5,
   cf = 5
 )
@@ -51,15 +52,16 @@ estimator analytically. If the value of \code{inf.fct.avail} is TRUE, one
 has to also supply a function named \code{inf.fct} to compute the influence
 function of the point estimator analytically. If the value of
 \code{inf.fct.avail} is FALSE, the function \code{inf.fct} is not needed and
-the empirical influence function (Zhang et al., 2020) will be computed.
-Following the \code{method} argument, there are optional arguments
-represented by dots (\code{...}). If specified, such optional arguments will
-be fed into the specified method. For instance, the \code{wmw} and
-\code{wmw.cens} methods involve a kernel function h. The default for h
-(named h0) and an illustrative alternative h1 are provided below as
-examples. The \code{wmw.cens}, \code{surv.diff} and \code{mrst.diff} methods
-require specifying a time point tau, which has no default value and must be
-supplied by the user.}
+the empirical influence function (Zhang et al., 2020) will be computed. See
+Details for information about the built-in methods.}
+
+\item{...}{If specified, such optional arguments will be fed into the
+specified method. For instance, the \code{wmw} and \code{wmw.cens} methods
+involve a kernel function h. The default for h (named h0) and an
+illustrative alternative h1 are provided below as examples. The
+\code{wmw.cens}, \code{surv.diff} and \code{mrst.diff} methods require
+specifying a time point tau, which has no default value and must be supplied
+by the user.}
 
 \item{SL.library}{A character vector of SuperLearner wrapper functions for the
 prediction algorithms that comprise the super learner library. A full list
@@ -128,7 +130,7 @@ detach()
 pi = 0.5; tau = 5*365
 sleete(y, t, X, pi=pi, method=surv.diff, bounds=c(-1,1), tau=tau)
 sleete(y, t, X, pi=pi, method=mrst.diff, tau=tau)
-sleete(y, t, X, pi=pi, method=wmw.cens, bounds=c(-1,1), tau=tau)
+sleete(y, t, X, pi=pi, method=wmw.cens, bounds=c(-1,1), tau=tau) \cr
 # the log-odds-ratio method
 # logit = log-odds
 logit = function(p) log(p/(1-p))
@@ -141,7 +143,7 @@ inf.fct.log.or = function(y, t, I=1:length(t), J=I, pi=NULL) {
   p1 = mean(y[I][t[I]>0.5]); p0 = mean(y[I][t[I]<0.5])
   (t[J]*(y[J]-p1)/(pi*p1*(1-p1)))-((1-t[J])*(y[J]-p0)/((1-pi)*p0*(1-p0)))
 }
-log.odds.ratio = list(pt.est=pt.est.log.or, inf.fct.avail=TRUE, inf.fct=inf.fct.log.or)
+log.odds.ratio = list(pt.est=pt.est.log.or, inf.fct.avail=TRUE, inf.fct=inf.fct.log.or) \cr
 
 # the wmw method with an arbitrary h (default = h0)
 # Agresti definition of h
@@ -166,8 +168,21 @@ inf.fct.wmw = function(y, t, I=1:length(t), J=I, pi=NULL, h=h0) {
   inf
 }
 wmw = list(pt.est=pt.est.wmw, inf.fct.avail=TRUE, inf.fct=inf.fct.wmw)
+
+}
+\references{
+Zhang Z, Ma S (2019). Machine learning methods for leveraging
+ baseline covariate information to improve the efficiency of clinical trials.
+ Statistics in Medicine, 38(10), 1703-1714.
+
+ Zhang Z, Ma S, Shen C, Liu C (2019). Estimating Mann-Whitney-type causal
+ effects. International Statistical Review, 87(3), 514-530.
+
+ Zhang Z, Li W, Zhang H (2020). Efficient estimation of Mann-Whitney-type
+ effect measures for right-censored survival outcomes in randomized clinical
+ trials. Statistics in Biosciences, 12(2), 246-262.
 }
 \seealso{
 See \code{\link[SuperLearner]{SuperLearner}} for details on
- \code{method}, \code{SL.library}, \code{cv}, \code{cf}, and \code{family}.
+ \code{SL.library}, and \code{family}.
 }
